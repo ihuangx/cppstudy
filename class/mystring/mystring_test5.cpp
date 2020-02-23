@@ -1,4 +1,4 @@
-// mystring_test3.cpp
+// mystring_test5.cpp
 // 实现一个简单的字符串类，只支持初始化和复制
 // 第五版：实现复制运算符重载函数 String& operator+(const String&)，通过第四、五个单元测试用例
 #include <iostream>
@@ -76,7 +76,7 @@ int main()
     {
         String s = "This is a string!";
         JSK_ASSERT(s.GetBuffer() != nullptr);
-        JSK_ASSERT(strcmp(s.GetBuffer(), "This is a string!"));
+        JSK_ASSERT(strcmp(s.GetBuffer(), "This is a string!") == 0);
         JSK_ASSERT(s.GetBuffer()[17] == '\0');
         JSK_ASSERT(s.GetLength() == 17);
     }

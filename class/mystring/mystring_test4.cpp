@@ -1,4 +1,4 @@
-// mystring_test3.cpp
+// mystring_test4.cpp
 // 实现一个简单的字符串类，只支持初始化和复制
 // 第四版：实现复制构造函数 String(const String&)，通过第三个单元测试用例
 #include <iostream>
@@ -72,7 +72,7 @@ int main()
     {
         String s = "This is a string!";
         JSK_ASSERT(s.GetBuffer() != nullptr);
-        JSK_ASSERT(strcmp(s.GetBuffer(), "This is a string!"));
+        JSK_ASSERT(strcmp(s.GetBuffer(), "This is a string!") == 0);
         JSK_ASSERT(s.GetBuffer()[17] == '\0');
         JSK_ASSERT(s.GetLength() == 17);
     }

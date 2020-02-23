@@ -1,6 +1,6 @@
-// mystring_test2.cpp
+// mystring_test6.cpp
 // 实现一个简单的字符串类，只支持初始化和复制
-// 第二版：实现缺省构造函数和析构函数，通过第一个单元测试用例
+// 第六版：新增支持右值引用的两个接口的签名和相应的三个单元测试用例
 #include <iostream>
 #include <cstdlib>
 #include <cstring>
@@ -22,10 +22,20 @@ public:
     }
 
     String(const char* buffer)
+		: length_{ strlen(buffer) }
+		, buffer_{ new char[length_ + 1] }
     {
+		strcpy_s(buffer_, length_ + 1, buffer);
     }
 
     String(const String& other)
+		: length_{ other.length_ }
+		, buffer_{ new char[other.length_ + 1] }
+    {
+		strcpy_s(buffer_, length_ + 1, other.buffer_);
+    }
+
+    String(String&& other)
     {
     }
 
@@ -38,8 +48,20 @@ public:
     {
         if (this != &rhs)
         {
+            delete[] buffer_;
+            length_ = strlen(rhs.buffer_);
+            buffer_ = new char[length_ + 1];
+            strcpy_s(buffer_, length_ + 1, rhs.buffer_);
         }
         return *this;
+    }
+
+    String& operator=(String&& rhs)
+    {
+		if (this != & rhs)
+		{
+		}
+		return *this;
     }
 
     const char* GetBuffer()const
@@ -94,6 +116,31 @@ int main()
         JSK_ASSERT(s.GetBuffer() != t.GetBuffer());
         JSK_ASSERT(s.GetLength() == t.GetLength());
         JSK_ASSERT(strcmp(s.GetBuffer(), t.GetBuffer()) == 0);
+    }
+    {
+        String s = "This is a string!";
+        String t = std::move(s);
+        JSK_ASSERT(s.GetBuffer() == nullptr);
+        JSK_ASSERT(t.GetBuffer() != nullptr);   
+        JSK_ASSERT(t.GetLength() == 17);
+        JSK_ASSERT(strcmp(t.GetBuffer(), "This is a string!") == 0);
+    }
+    {
+        String s = "This is a string!";
+        s = std::move(s);
+        JSK_ASSERT(s.GetBuffer() != nullptr);
+        JSK_ASSERT(strcmp(s.GetBuffer(), "This is a string!") == 0);
+        JSK_ASSERT(s.GetBuffer()[17] == '\0');
+        JSK_ASSERT(s.GetLength() == 17);
+    }
+    {
+        String s = "This is a string!";
+        String t;
+        t = std::move(s);
+        JSK_ASSERT(s.GetBuffer() == nullptr);
+        JSK_ASSERT(t.GetBuffer() != nullptr);
+        JSK_ASSERT(t.GetLength() == 17);
+        JSK_ASSERT(strcmp(t.GetBuffer(), "This is a string!") == 0);
     }
     return 0;
 }

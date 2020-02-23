@@ -60,22 +60,20 @@ public:
 
 int main()
 {
-    //{
-    //    String s;
-    //    JSK_ASSERT(s.GetBuffer() != nullptr);
-    //    JSK_ASSERT(s.GetBuffer()[0] == '\0');
-    //    JSK_ASSERT(s.GetLength() == 0);
-    //}
+    {
+        String s;
+        JSK_ASSERT(s.GetBuffer() != nullptr);
+        JSK_ASSERT(s.GetBuffer()[0] == '\0');
+        JSK_ASSERT(s.GetLength() == 0);
+    }
     {
         String s = "This is a string!";
         JSK_ASSERT(s.GetBuffer() != nullptr);
-        JSK_ASSERT(strcmp(s.GetBuffer(), "This is a string!"));
-        //JSK_ASSERT(s.GetBuffer()[17] == '\0');
-		size_t len = s.GetLength();
-		std::cout << len << std::endl;
-        //JSK_ASSERT(s.GetLength() == 17);
+        JSK_ASSERT(strcmp(s.GetBuffer(), "This is a string!") == 0);
+        JSK_ASSERT(s.GetBuffer()[17] == '\0');
+        JSK_ASSERT(s.GetLength() == 17);
     }
-    /*{
+    {
         String s = "This is a string!";
         String t = s;
         JSK_ASSERT(t.GetBuffer() != nullptr);
@@ -99,6 +97,6 @@ int main()
         JSK_ASSERT(s.GetBuffer() != t.GetBuffer());
         JSK_ASSERT(s.GetLength() == t.GetLength());
         JSK_ASSERT(strcmp(s.GetBuffer(), t.GetBuffer()) == 0);
-    }*/
+    }
     return 0;
 }
