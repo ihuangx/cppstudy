@@ -1,0 +1,5 @@
+add_executable(object_construction_test object_construction_test.cpp)
+
+add_executable(struct_ctor_delete_test struct_ctor_delete_test.cpp)
+
+add_subdirectory(mystring)
